@@ -1,5 +1,7 @@
-var request = require('request'),
-    cheerio = require('cheerio'),
+var request     = require('request'),
+    cheerio     = require('cheerio'),
+    inquirer    = require('inquirer'),
+    Q           = require('q'),
 
     findAveragePrice = function(bodyData) {
         var $ = cheerio.load(bodyData),
@@ -34,12 +36,37 @@ var request = require('request'),
     searchMaxResults = function(bodyData) {
         var $ = cheerio.load(bodyData);
         return $('title').text().match(/\d+/)[0];
+    },
+    runner = function() {
+
+    },
+    starter = function(query) {
+        var p = Q.defer();
+
+        console.log(query);
+
+        return p.promise;
     };
 
+/*
 request('https://www.hopwork.com/s?q=HTML5&location=&lon=&lat=&countryCode=&country=&region=&regionCode=&city=', function(error, response, body) {
     if (!error && response.statusCode == 200) {
         console.log(findAveragePrice(body));
         console.log(searchMaxPagination(body));
         console.log(searchMaxResults(body));
     }
+});
+*/
+
+inquirer.prompt(
+    [
+        {
+            type: 'input',
+            message: 'Which technology/domain would you like to search ?',
+            name: 'query'
+        }
+    ], function(answer) {
+    starter(answer.query).then(function(averagePrice) {
+        console.log('Average price for ' + answer.query + ' is : ' + averagePrice + '€');
+    })
 });
