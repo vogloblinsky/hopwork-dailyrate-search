@@ -30,11 +30,16 @@ var request = require('request'),
             }
         });
         return tmpMax;
+    },
+    searchMaxResults = function(bodyData) {
+        var $ = cheerio.load(bodyData);
+        return $('title').text().match(/\d+/)[0];
     };
 
 request('https://www.hopwork.com/s?q=HTML5&location=&lon=&lat=&countryCode=&country=&region=&regionCode=&city=', function(error, response, body) {
     if (!error && response.statusCode == 200) {
         console.log(findAveragePrice(body));
         console.log(searchMaxPagination(body));
+        console.log(searchMaxResults(body));
     }
 });
