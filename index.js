@@ -71,7 +71,7 @@ var casper = require('casper').create({
         }, openPageAndCalculateData, terminate);
     },
     terminate = function() {
-        finalPrice = averagePrices / maxPagination;
+        finalPrice = Math.floor(averagePrices / maxPagination);
         this.echo('Average price is: ' + finalPrice + ' €').exit();
     };
 
