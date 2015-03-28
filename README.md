@@ -5,7 +5,8 @@ CasperJS script to get an average daily rate on www.hopwork.com
 ## Requirements
 
 - Nodejs
-- CasperJS installed globally : npm install -g casperjs
+- SlimerJS installed globally : http://slimerjs.org/ | npm install -g slimerjs
+- CasperJS installed globally : http://casperjs.org/ | npm install -g casperjs
 
 ## Use
 
