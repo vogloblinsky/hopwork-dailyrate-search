@@ -9,13 +9,13 @@ var casper = require('casper').create({
     paginationIndex = 1,
     averagePrices = 0,
     finalPrice = 0,
+    maxPagination = 0,
     searchNumberOfPeople = function(title) {
         return title.match(/\d+/)[0];
     },
     searchPrice = function(priceString) {
         return priceString.match(/\d+/)[0];
     },
-    maxPagination = 0,
     searchMaxPagination = function(pagers) {
         var tmpMax = 0,
             pagers = casper.getElementsInfo('.pagination  .signin-mandatory');
@@ -53,7 +53,7 @@ var casper = require('casper').create({
         });
     },
     openPageAndCalculateData = function() {
-        this.echo('Process page ' + paginationIndex);
+        this.echo(' Process page ' + paginationIndex);
 
         //this.capture('capture-' + paginationIndex + '.png');
 
@@ -90,7 +90,6 @@ if (casper.cli.args.length === 0 && Object.keys(casper.cli.options).length === 0
     casper.start('https://www.hopwork.com/s?q=' + tech + '&location=&lon=&lat=&countryCode=&country=&region=&regionCode=&city=');
 
     casper.waitFor(function check() {
-        //numberPeople = searchNumberOfPeople(this.getTitle());
         maxPagination = searchMaxPagination();
         this.thenClick('#signinlink');
         this.viewport(1200, 800);
@@ -104,6 +103,7 @@ if (casper.cli.args.length === 0 && Object.keys(casper.cli.options).length === 0
             }, email, pwd);
             // Wait login form hidden
             return this.wait(1500, function() {
+                casper.echo('Login ok');
                 return this.capture('capture.png', {
                     top: 0,
                     left: 0,
