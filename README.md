@@ -11,5 +11,12 @@ CasperJS script to get an average daily rate on www.hopwork.com
 ## Use
 
 ```
-casperjs --engine=slimerjs -load-images no index.js --technology=html5 --email=YOUREMAIL --pwd=YOURPASSWORD
+casperjs --engine=slimerjs -load-images no index.js --technology=YOURSEARCH --email=YOUREMAIL --pwd=YOURPASSWORD
+```
+
+## Results
+
+```
+Technology searched: html5
+Average price is: 350 €
 ```
