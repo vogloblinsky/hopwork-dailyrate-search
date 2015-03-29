@@ -10,9 +10,6 @@ var casper = require('casper').create({
     averagePrices = 0,
     finalPrice = 0,
     maxPagination = 0,
-    searchNumberOfPeople = function(title) {
-        return title.match(/\d+/)[0];
-    },
     searchPrice = function(priceString) {
         return priceString.match(/\d+/)[0];
     },
