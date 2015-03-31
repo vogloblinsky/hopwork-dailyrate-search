@@ -1,7 +1,12 @@
+'use strict';
+
+/* globals document */
+
 var casper = require('casper').create({
         logLevel: 'debug',
         verbose: false
     }),
+    utils = require('utils'),
     tech = '',
     email = '',
     pwd = '',
@@ -13,7 +18,7 @@ var casper = require('casper').create({
     searchPrice = function(priceString) {
         return priceString.match(/\d+/)[0];
     },
-    searchMaxPagination = function(pagers) {
+    searchMaxPagination = function() {
         var tmpMax = 0,
             pagers = casper.getElementsInfo('.pagination  .signin-mandatory');
         casper.each(pagers, function(self, pager) {
@@ -49,6 +54,10 @@ var casper = require('casper').create({
             });
         });
     },
+    terminate = function() {
+        finalPrice = Math.floor(averagePrices / maxPagination);
+        this.echo('Average price is: ' + finalPrice + ' €').exit();
+    },
     openPageAndCalculateData = function() {
         this.echo(' Process page ' + paginationIndex);
 
@@ -66,17 +75,13 @@ var casper = require('casper').create({
                 });
             });
         }, openPageAndCalculateData, terminate);
-    },
-    terminate = function() {
-        finalPrice = Math.floor(averagePrices / maxPagination);
-        this.echo('Average price is: ' + finalPrice + ' €').exit();
     };
 
 casper.cli.drop('cli');
 casper.cli.drop('casper-path');
 
-if (casper.cli.args.length === 0 && Object.keys(casper.cli.options).length === 0) {
-    casper.echo('Please provide the option technology').exit();
+if (Object.keys(casper.cli.options).length <= 2) {
+    casper.echo('Please provide the mandatory options').exit();
 } else {
     tech = casper.cli.get('technology');
     email = casper.cli.get('email');
@@ -110,7 +115,7 @@ if (casper.cli.args.length === 0 && Object.keys(casper.cli.options).length === 0
             });
         });
     }, openPageAndCalculateData, function timeout() { // step to execute if check has failed
-        this.echo('I can\'t has your price !').exit();
+        this.echo('I can\'t had your price !').exit();
     });
 
     casper.run();
