@@ -56,7 +56,7 @@ var casper = require('casper').create({
     },
     terminate = function() {
         finalPrice = Math.floor(averagePrices / maxPagination);
-        this.echo('Average price is: ' + finalPrice + ' €').exit();
+        this.echo('Average price is: ' + finalPrice + ' € with ' + numberPeople + ' people').exit();
     },
     openPageAndCalculateData = function() {
         this.echo(' Process page ' + paginationIndex);
