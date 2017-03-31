@@ -1,4 +1,4 @@
-#Hopwork Dailyrate Search
+# Hopwork Dailyrate Search
 
 CasperJS script to get an average daily rate on www.hopwork.com
 
